@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="mobielecommunicatie.MainPage"
+             xmlns:viewmodel="clr-namespace:mobielecommunicatie.ViewModel"
+             x:DataType="viewmodel:MainPageViewModel"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             BackgroundColor="#11223d">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="baseStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="labelStyle" TargetType="Label" BasedOn="{StaticResource baseStyle}">
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+            <Style x:Key="goalStyle" TargetType="Label" BasedOn="{StaticResource baseStyle}">
+                <Setter Property="TextColor" Value="Gray"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="auto,*,auto,auto,*"  ColumnDefinitions="*" Padding="10" RowSpacing="10">
+
+
+        <Label Grid.Row="0" Grid.Column="0"  Style="{StaticResource baseStyle}" Text="Stappenteller" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+        <Label Grid.Row="2" Grid.Column="0"  Style="{StaticResource baseStyle}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label.Text>
+                <MultiBinding StringFormat="{}{0} / {1}">
+                    <Binding Path="Steps" />
+                    <Binding Path="Goal" />
+                </MultiBinding>
+            </Label.Text>
+        </Label>
+        <Label Grid.Row="3" Grid.Column="0"  Style="{StaticResource goalStyle}" Text="{Binding Motivation}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+        <lvc:CartesianChart Grid.Row="4" Grid.Column="0" Series="{Binding Series}" XAxes="{Binding XAxes}" YAxes="{Binding YAxes}">
+        </lvc:CartesianChart>
+        <lvc:PieChart Grid.Row="1" Grid.Column="0"  
+        Series="{Binding Series2}"
+        InitialRotation="-225"
+        MaxAngle="270"
+        MinValue="0"
+        MaxValue="100">
+        </lvc:PieChart>
+    </Grid>
+
+
+</ContentPage>
