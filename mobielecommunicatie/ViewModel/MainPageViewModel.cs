@@ -27,7 +27,7 @@ namespace mobielecommunicatie.ViewModel
 
         // doel
         [ObservableProperty]
-        static int goal = 10000;
+        static int goal = 100;
 
         // motivatie tekst
         [ObservableProperty]
@@ -61,7 +61,7 @@ namespace mobielecommunicatie.ViewModel
         {
             new Axis
             {
-                Labeler = value => $"{(int)value/100}:{(value%100).ToString("00")}",
+                Labeler = value => $"{(int)value/100}:{((value%100)*60/100).ToString("00")}",
             
             }
         };
@@ -95,7 +95,7 @@ namespace mobielecommunicatie.ViewModel
             // zet de eerste waarde voor de history grafiek
             lastdateSaved = DateTime.Now;
             var values = (ObservableCollection<ObservablePoint>)Series[0].Values!;
-            values.Add(new ObservablePoint(DateTime.Now.Minute + DateTime.Now.Hour * 100, Steps));
+            values.Add(new ObservablePoint((DateTime.Now.Minute*100/60) + DateTime.Now.Hour * 100, Steps));
 
             // voeg het percentage toe voor de gauge
             Series2 = GaugeGenerator.BuildSolidGauge(
@@ -159,7 +159,7 @@ namespace mobielecommunicatie.ViewModel
                     var diffOfDates = DateTime.Now - lastdateSaved;
                     if (diffOfDates.Minutes >= 1 || diffOfDates.Hours > 0)
                     {
-                        ObservablePoint data = new ObservablePoint(DateTime.Now.Minute + DateTime.Now.Hour * 100, Steps);
+                        ObservablePoint data = new ObservablePoint((DateTime.Now.Minute*100/60) + DateTime.Now.Hour * 100, Steps);
                         var values = (ObservableCollection<ObservablePoint>)Series[0].Values!;
                         values.Add(data);
                         lastdateSaved = DateTime.Now;
