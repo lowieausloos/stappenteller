@@ -27,7 +27,7 @@ namespace mobielecommunicatie.ViewModel
 
         // doel
         [ObservableProperty]
-        static int goal = 100;
+        static int goal = 10;
 
         // motivatie tekst
         [ObservableProperty]
@@ -171,6 +171,7 @@ namespace mobielecommunicatie.ViewModel
                     if (Steps * 100 / goal > 100)
                     {
                         _steps_percent.Value = 100;
+                        YAxes[0].MaxLimit = Steps;
                     } else
                     {
                         _steps_percent.Value = Steps * 100 / goal;
